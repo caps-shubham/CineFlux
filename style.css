@@ -1,0 +1,834 @@
+/* ============================================================
+   CineFlux — premium dark cinema theme
+   Built to style the markup exactly as script.js / movie-details.js
+   already generate it. No JS logic files were touched.
+   ============================================================ */
+
+:root {
+  --bg: #0a0c14;
+  --bg-panel: #12151f;
+  --bg-card: #161a26;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #eef0f6;
+  --text-dim: #9aa0b4;
+  --amber: #f5b95a;
+  --amber-dim: #c9924a;
+  --teal: #4fd6c8;
+  --shadow-deep: 0 30px 60px -20px rgba(0, 0, 0, 0.65);
+
+  --font-display: "Bebas Neue", "Manrope", sans-serif;
+  --font-body: "Manrope", -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Ambient cinematic backdrop ---------- */
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+}
+
+.glow-1 {
+  width: 46vw;
+  height: 46vw;
+  top: -14vw;
+  left: -10vw;
+  background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+}
+
+.glow-2 {
+  width: 40vw;
+  height: 40vw;
+  bottom: -16vw;
+  right: -8vw;
+  background: radial-gradient(circle, var(--teal) 0%, transparent 70%);
+  opacity: 0.22;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.015) 0px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: overlay;
+}
+
+/* Background video (drop your own file at assets/bg-video.mp4 —
+   see the note below on where to source one). Fails silently and
+   the gradient/glow backdrop still looks complete without it. */
+
+.bg-video-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) saturate(1.15) contrast(1.05);
+  opacity: 0.55;
+}
+
+.bg-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--bg) 0%,
+    rgba(10, 12, 20, 0.55) 30%,
+    rgba(10, 12, 20, 0.75) 70%,
+    var(--bg) 100%
+  );
+}
+
+/* Real 3D CSS film reel — two faces spinning in true 3D space,
+   no image, no video, just transforms. */
+
+.floating-reel {
+  position: absolute;
+  top: 14%;
+  right: 8%;
+  width: 120px;
+  height: 120px;
+  perspective: 700px;
+  opacity: 0.5;
+  display: none;
+}
+
+.reel-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, transparent 0 18%, var(--line) 18% 20%, transparent 20% 34%, var(--line) 34% 36%, transparent 36%),
+    repeating-conic-gradient(rgba(255, 255, 255, 0.12) 0deg 8deg, transparent 8deg 40deg);
+  border: 2px solid rgba(245, 185, 90, 0.35);
+  animation: spin3d 10s linear infinite;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.reel-back {
+  animation-delay: -5s;
+}
+
+@keyframes spin3d {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 3.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.site-header.compact {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-mark {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 4px 10px rgba(245, 185, 90, 0.4));
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  letter-spacing: 0.03em;
+  background: linear-gradient(120deg, #fff, var(--amber) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.back-link {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--amber);
+}
+
+.hero-title {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+@media (min-width: 900px) {
+  .floating-reel {
+    display: block;
+  }
+}
+
+.hero-sub {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 34rem;
+}
+
+/* ---------- Sprocket strip (film-reel motif) ---------- */
+
+.sprocket-row {
+  height: 10px;
+  max-width: 1080px;
+  margin: 0 auto 2.4rem;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 2px, transparent 2.6px);
+  background-size: 22px 100%;
+  background-repeat: repeat-x;
+  opacity: 0.7;
+}
+
+/* ---------- Trending chips ---------- */
+
+.trending {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 2.2rem;
+}
+
+.trending-label {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-right: 0.2rem;
+}
+
+.chip {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.chip:hover {
+  color: var(--amber);
+  border-color: rgba(245, 185, 90, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ---------- Feature badges ---------- */
+
+.feature-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 2.2rem;
+  margin: 0 0 2.6rem;
+}
+
+.feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.feature-icon {
+  font-size: 1.1rem;
+}
+
+/* ---------- Empty state ---------- */
+
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 3.5rem 1.5rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 2.6rem;
+  opacity: 0.6;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5));
+}
+
+.empty-state p {
+  margin: 0;
+  max-width: 26rem;
+}
+
+/* ---------- Details page backdrop glow ---------- */
+
+.detail-backdrop {
+  position: fixed;
+  inset: -8%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  filter: blur(70px) brightness(0.45) saturate(1.3);
+  transform: scale(1.15);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.detail-backdrop.visible {
+  opacity: 0.6;
+}
+
+/* ---------- Search panel ---------- */
+
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+.search-panel {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+#movieForm {
+  display: flex;
+  width: 100%;
+  max-width: 640px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 0.4rem 0.4rem 1.3rem;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-deep);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+#movieForm:focus-within {
+  border-color: rgba(245, 185, 90, 0.5);
+  transform: translateY(-2px);
+}
+
+#movieInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.7rem 0.5rem;
+  outline: none;
+}
+
+#movieInput::placeholder {
+  color: var(--text-dim);
+}
+
+#movieForm button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.6rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #17110a;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dim));
+  cursor: pointer;
+  box-shadow: 0 10px 24px -8px rgba(245, 185, 90, 0.55);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+#movieForm button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -8px rgba(245, 185, 90, 0.7);
+}
+
+#movieForm button:active {
+  transform: translateY(0);
+}
+
+/* ---------- Loader ---------- */
+
+.loader {
+  --color-1: rgba(255, 255, 255, 0.15);
+  --color-2: var(--amber);
+  --size: 1px;
+
+  width: calc(48 * var(--size));
+  height: calc(48 * var(--size));
+  border: calc(4 * var(--size)) solid var(--color-1);
+  border-bottom-color: var(--color-2);
+  border-radius: 50%;
+  display: block;
+  margin: 3rem auto;
+  box-sizing: border-box;
+  animation: rotation 0.9s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Results grid & cards ---------- */
+
+#movieHub {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1.6rem;
+  perspective: 1200px;
+}
+
+#movieHub p {
+  text-align: center;
+  color: var(--text-dim);
+  grid-column: 1 / -1;
+}
+
+.movie-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.15s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.7);
+}
+
+.movie-card:hover {
+  border-color: rgba(245, 185, 90, 0.35);
+  box-shadow: 0 26px 50px -18px rgba(0, 0, 0, 0.8);
+}
+
+/* entrance animation, triggered by effects.js on new cards */
+.movie-card.card-enter {
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+}
+
+.movie-card.card-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.movie-card > div:first-child {
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: #1c202c;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-card > div:last-child {
+  padding: 0.85rem 1rem 1.1rem;
+}
+
+.movie-card > div:last-child p:first-child {
+  margin: 0 0 0.2rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-card > div:last-child p:last-child {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* ---------- Movie details page ---------- */
+
+#movie-detail {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: 2.8rem;
+  align-items: start;
+  padding-top: 1rem;
+}
+
+#movie-detail > div:first-child {
+  position: sticky;
+  top: 2rem;
+  perspective: 1000px;
+}
+
+#movie-detail > div:first-child img {
+  width: 100%;
+  border-radius: 18px;
+  display: block;
+  box-shadow: var(--shadow-deep);
+  transition: transform 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+#movie-detail > div:last-child > h2 {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+/* meta chip row: released / rated / runtime / genre / imdb rating */
+#movie-detail > div:last-child > section:nth-child(2) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.8rem;
+}
+
+#movie-detail > div:last-child > section:nth-child(2) p {
+  margin: 0;
+  padding: 0.4rem 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+#movie-detail > div:last-child > section:nth-child(2) p:last-child {
+  color: var(--amber);
+  border-color: rgba(245, 185, 90, 0.35);
+  font-weight: 700;
+}
+
+#movie-detail > div:last-child > section:nth-child(2) p:last-child::before {
+  content: "★ ";
+}
+
+/* shared "block" look for plot / actors */
+#movie-detail > div:last-child > div:nth-child(3),
+#movie-detail > div:last-child > div:nth-child(5) {
+  margin-bottom: 1.8rem;
+  padding: 1.3rem 1.4rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+#movie-detail > div:last-child > div:nth-child(3) p:first-child,
+#movie-detail > div:last-child > div:nth-child(5) p:first-child {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+#movie-detail > div:last-child > div:nth-child(3) p:last-child,
+#movie-detail > div:last-child > div:nth-child(5) p:last-child {
+  margin: 0;
+  color: var(--text);
+  max-width: 62ch;
+}
+
+/* two-column sections: director/writer, language/country */
+#movie-detail > div:last-child > div:nth-child(4),
+#movie-detail > div:last-child > div:nth-child(6) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-bottom: 1.8rem;
+}
+
+#movie-detail > div:last-child > div:nth-child(4) section,
+#movie-detail > div:last-child > div:nth-child(6) section {
+  flex: 1 1 200px;
+}
+
+#movie-detail > div:last-child > div:nth-child(4) section p:first-child,
+#movie-detail > div:last-child > div:nth-child(6) section p:first-child {
+  margin: 0 0 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+#movie-detail > div:last-child > div:nth-child(4) section p:last-child,
+#movie-detail > div:last-child > div:nth-child(6) section p:last-child {
+  margin: 0;
+  color: var(--text);
+}
+
+/* CTA button */
+#movie-detail > div:last-child > button {
+  border: none;
+  border-radius: 999px;
+  padding: 0;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dim));
+  cursor: pointer;
+  box-shadow: 0 14px 30px -10px rgba(245, 185, 90, 0.55);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+#movie-detail > div:last-child > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -10px rgba(245, 185, 90, 0.7);
+}
+
+#movie-detail > div:last-child > button a {
+  display: block;
+  padding: 0.85rem 1.8rem;
+  font-weight: 700;
+  color: #17110a;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  text-align: center;
+  padding: 2rem 1.5rem 3rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablets */
+@media (max-width: 900px) {
+  main {
+    padding: 0 1.2rem 3rem;
+  }
+
+  .feature-row {
+    gap: 0.8rem 1.4rem;
+  }
+
+  #movieHub {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.1rem;
+  }
+
+  #movie-detail {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  #movie-detail > div:first-child {
+    position: static;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+}
+
+/* Large phones */
+@media (max-width: 600px) {
+  .bg-video-wrap {
+    display: none;
+  }
+
+  .site-header {
+    padding: 2.4rem 1.2rem 1.6rem;
+  }
+
+  .site-header.compact {
+    padding: 1.4rem 1.2rem 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  #movieForm {
+    flex-wrap: wrap;
+    border-radius: 22px;
+    padding: 0.6rem;
+    gap: 0.5rem;
+  }
+
+  #movieInput {
+    flex-basis: 100%;
+    padding: 0.5rem 0.4rem;
+  }
+
+  #movieForm button {
+    flex: 1;
+    padding: 0.7rem 1rem;
+  }
+
+  #movieHub {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.9rem;
+  }
+
+  .sprocket-row {
+    margin-bottom: 1.6rem;
+    background-size: 16px 100%;
+  }
+
+  .feature-row {
+    gap: 0.7rem 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature {
+    font-size: 0.82rem;
+  }
+
+  .trending {
+    margin-bottom: 1.6rem;
+  }
+
+  .chip {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.75rem;
+  }
+
+  .empty-state {
+    padding: 2.4rem 1rem;
+  }
+
+  .empty-icon {
+    font-size: 2.1rem;
+  }
+
+  .movie-card > div:last-child {
+    padding: 0.65rem 0.7rem 0.85rem;
+  }
+
+  .movie-card > div:last-child p:first-child {
+    font-size: 0.88rem;
+  }
+
+  #movie-detail > div:last-child > section:nth-child(2) p {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  #movie-detail > div:last-child > div:nth-child(3),
+  #movie-detail > div:last-child > div:nth-child(5) {
+    padding: 1.05rem 1.1rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .brand-name {
+    font-size: 1.4rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.1rem, 9vw, 2.8rem);
+  }
+
+  #movieHub {
+    grid-template-columns: repeat(auto-fill, minmax(45vw, 1fr));
+  }
+
+  #movie-detail > div:first-child {
+    max-width: 200px;
+  }
+
+  #movie-detail > div:last-child > h2 {
+    font-size: clamp(1.8rem, 9vw, 2.4rem);
+  }
+}
+
+/* Fine-pointer only: keep hover tilt/lift for mouse & trackpad,
+   skip it on touch so nothing feels "stuck" mid-tilt after a tap */
+@media (hover: none) and (pointer: coarse) {
+  .movie-card:hover {
+    box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.7);
+    border-color: var(--line);
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

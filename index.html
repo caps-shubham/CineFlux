@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineFlux — Find any film, instantly</title>
+
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9E%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Hero video layout -->
+    <style>
+        /* HERO SECTION */
+        .site-header {
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-layout {
+            width: min(1200px, 92%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+            padding: 70px 0 40px;
+        }
+
+        .hero-content {
+            min-width: 0;
+        }
+
+        .hero-title {
+            margin-bottom: 18px;
+        }
+
+        .hero-sub {
+            max-width: 650px;
+            margin-bottom: 0;
+        }
+
+        /* VIDEO ON RIGHT */
+        .hero-video-card {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #080808;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.55),
+                0 0 45px rgba(255, 255, 255, 0.06);
+            transform: perspective(1000px) rotateY(-4deg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero-video-card:hover {
+            transform: perspective(1000px) rotateY(0deg) translateY(-5px);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.65),
+                0 0 55px rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* DARK CINEMATIC OVERLAY */
+        .hero-video-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0.28),
+                    transparent 50%,
+                    rgba(0, 0, 0, 0.2)
+                ),
+                linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.45),
+                    transparent 45%
+                );
+        }
+
+        /* Small film label */
+        .hero-video-label {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            z-index: 2;
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-family: "Manrope", sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* MOBILE */
+        @media (max-width: 850px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                padding-top: 45px;
+            }
+
+            .hero-video-card {
+                transform: none;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+            .hero-video-card:hover {
+                transform: translateY(-3px);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero-layout {
+                width: 90%;
+                padding-top: 30px;
+            }
+
+            .hero-video-card {
+                border-radius: 18px;
+            }
+
+            .hero-video-label {
+                font-size: 9px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND SCENE -->
+    <div class="scene" aria-hidden="true">
+
+        <div class="bg-video-wrap">
+            <video class="bg-video" autoplay muted loop playsinline poster="assets/bg-poster.jpg">
+                <source src="assets/bg-video.mp4" type="video/mp4">
+            </video>
+
+            <div class="bg-video-overlay"></div>
+        </div>
+
+        <div class="floating-reel">
+            <div class="reel-face reel-front"></div>
+            <div class="reel-face reel-back"></div>
+        </div>
+
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+
+        <div class="grain"></div>
+    </div>
+
+
+    <!-- HEADER / HERO -->
+    <header class="site-header">
+
+        <div class="hero-layout">
+
+            <!-- LEFT SIDE -->
+            <div class="hero-content">
+
+                <div class="brand">
+                    <span class="brand-mark">🎞️</span>
+                    <span class="brand-name">CineFlux</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Find any film, instantly.
+                </h1>
+
+                <p class="hero-sub">
+                    Search the world's movies — posters, ratings, cast and plot
+                    in one place.
+                </p>
+
+            </div>
+
+
+            <!-- RIGHT SIDE VIDEO -->
+            <div class="hero-video-card">
+
+             <video
+              class="hero-video"
+              autoplay
+              muted
+              loop
+               playsinline>
+
+               <source src="hero-video.mp4" type="video/mp4">
+
+               Your browser does not support the video tag.
+               </video>
+
+                <div class="hero-video-overlay"></div>
+
+                
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="sprocket-row" aria-hidden="true"></div>
+
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- SEARCH -->
+        <div class="search-panel">
+
+            <form id="movieForm" action="">
+
+                <input
+                    id="movieInput"
+                    type="text"
+                    placeholder="Search a title… Inception, The Matrix, Interstellar">
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- TRENDING -->
+        <div class="trending" aria-label="Try a search">
+
+            <span class="trending-label">
+                Try:
+            </span>
+
+            <button
+                type="button"
+                class="chip"
+                data-query="Inception">
+                Inception
+            </button>
+
+            <button
+                type="button"
+                class="chip"
+                data-query="Interstellar">
+                Interstellar
+            </button>
+
+            <button
+                type="button"
+                class="chip"
+                data-query="The Dark Knight">
+                The Dark Knight
+            </button>
+
+            <button
+                type="button"
+                class="chip"
+                data-query="Parasite">
+                Parasite
+            </button>
+
+        </div>
+
+
+        <!-- FEATURES -->
+        <div class="feature-row">
+
+            <div class="feature">
+                <span class="feature-icon">⚡</span>
+                <span>Instant search</span>
+            </div>
+
+            <div class="feature">
+                <span class="feature-icon">🎭</span>
+                <span>Full cast &amp; plot</span>
+            </div>
+
+            <div class="feature">
+                <span class="feature-icon">⭐</span>
+                <span>IMDb ratings</span>
+            </div>
+
+        </div>
+
+
+        <!-- MOVIE RESULTS -->
+        <div id="movieHub">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🎬
+                </div>
+
+                <p>
+                    Search for a movie above to see its poster,
+                    rating and full details.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <p>
+            &copy; 2026 CineFlux. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="effects.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

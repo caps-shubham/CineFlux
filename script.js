@@ -2,6 +2,8 @@ const movieForm = document.querySelector("#movieForm");
 const movieInput = document.querySelector("#movieInput");
 const movieHub = document.querySelector("#movieHub");
 const favoritesBtn = document.querySelector("#favoritesBtn");
+const moodToggleBtn = document.querySelector("#moodToggleBtn");
+const moodPanel = document.querySelector("#moodPanel");
 const moodButtons = document.querySelectorAll(".mood-btn");
 
 // Curated titles used to build mood-based suggestions.
@@ -142,7 +144,10 @@ function toggleFavoriteFromCard(button) {
 }
 
 
-favoritesBtn.addEventListener("click", () => {
+favoritesBtn.addEventListener("click", showFavorites);
+
+
+function showFavorites() {
 
     const favorites = getFavorites();
 
@@ -152,12 +157,33 @@ favoritesBtn.addEventListener("click", () => {
     }
 
     displayMovies(favorites);
+}
+
+
+// If the details page links back here with ?view=favorites, open
+// straight into the favorites list.
+const initialParams = new URLSearchParams(location.search);
+
+if (initialParams.get("view") === "favorites") {
+    showFavorites();
+}
+
+
+moodToggleBtn.addEventListener("click", () => {
+    const isOpen = !moodPanel.hidden;
+    moodPanel.hidden = isOpen;
+    moodToggleBtn.setAttribute("aria-expanded", String(!isOpen));
 });
 
 
 moodButtons.forEach((button) => {
     button.addEventListener("click", () => {
         fetchMoodMovies(button.dataset.mood);
+
+        // Collapse the mood picker once a choice is made so the
+        // results have room to breathe.
+        moodPanel.hidden = true;
+        moodToggleBtn.setAttribute("aria-expanded", "false");
     });
 });
 

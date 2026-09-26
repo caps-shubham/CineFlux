@@ -183,20 +183,32 @@
     <!-- HEADER / HERO -->
     <header class="site-header">
 
+        <nav class="topnav">
+
+            <a href="index.html" class="brand">
+                <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 8.5 20 5l1 4-17 3.5z" />
+                    <path d="M4 12h16v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" />
+                    <path d="m6 8 3-3M11 7l3-3M16 6l3-3" />
+                </svg>
+                <span class="brand-name">CineFlux</span>
+            </a>
+
+            <button type="button" id="favoritesBtn" class="favorites-icon-btn" aria-label="My Favorites">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path
+                        d="M12 21s-6.7-4.35-9.3-8.1C1 10.1 1.6 6.7 4.6 5.2c2.4-1.2 5 .1 6.4 2.3 1.4-2.2 4-3.5 6.4-2.3 3 1.5 3.6 4.9 1.9 7.7C18.7 16.65 12 21 12 21z" />
+                </svg>
+            </button>
+
+        </nav>
+
         <div class="hero-layout">
 
             <!-- LEFT SIDE -->
             <div class="hero-content">
-
-                <div class="brand">
-                    <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M3 8.5 20 5l1 4-17 3.5z" />
-                        <path d="M4 12h16v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" />
-                        <path d="m6 8 3-3M11 7l3-3M16 6l3-3" />
-                    </svg>
-                    <span class="brand-name">CineFlux</span>
-                </div>
 
                 <h1 class="hero-title">
                     Find any film, instantly.
@@ -260,21 +272,6 @@
         </div>
 
 
-        <!-- FAVORITES TOGGLE -->
-        <div class="quick-actions">
-
-            <button type="button" id="favoritesBtn" class="favorites-toggle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path
-                        d="M12 21s-6.7-4.35-9.3-8.1C1 10.1 1.6 6.7 4.6 5.2c2.4-1.2 5 .1 6.4 2.3 1.4-2.2 4-3.5 6.4-2.3 3 1.5 3.6 4.9 1.9 7.7C18.7 16.65 12 21 12 21z" />
-                </svg>
-                <span>My Favorites</span>
-            </button>
-
-        </div>
-
-
         <!-- TRENDING -->
         <div class="trending" aria-label="Try a search">
 
@@ -313,10 +310,20 @@
         </div>
 
 
-        <!-- MOOD SUGGESTIONS -->
-        <div class="mood-panel" aria-label="Pick your mood for suggestions">
+        <!-- MOOD SUGGESTIONS (collapsed by default) -->
+        <div class="mood-toggle-row">
 
-            <span class="mood-label">Pick your mood:</span>
+            <button type="button" id="moodToggleBtn" class="mood-toggle" aria-expanded="false" aria-controls="moodPanel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M13 2 4 14h6l-1 8 9-12h-6z" />
+                </svg>
+                <span>Suggest by mood</span>
+            </button>
+
+        </div>
+
+        <div class="mood-panel" id="moodPanel" aria-label="Pick your mood for suggestions" hidden>
 
             <button type="button" class="mood-btn" data-mood="happy">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"

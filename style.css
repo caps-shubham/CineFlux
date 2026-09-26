@@ -168,7 +168,7 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 0.6rem;
-  padding: 3.5rem 1.5rem 2rem;
+  padding: 0 0 2rem;
   text-align: center;
 }
 
@@ -180,6 +180,53 @@ a {
   max-width: 980px;
   margin: 0 auto;
   padding: 2rem 1.5rem 1rem;
+}
+
+/* ---------- Top nav (brand + favorites icon) ---------- */
+
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  text-align: left;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.favorites-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+}
+
+.favorites-icon-btn svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.favorites-icon-btn:hover {
+  color: var(--amber);
+  border-color: rgba(245, 185, 90, 0.45);
+  transform: translateY(-1px);
 }
 
 .brand {
@@ -293,15 +340,15 @@ a {
   transform: translateY(-1px);
 }
 
-/* ---------- Quick actions (favorites toggle) ---------- */
+/* ---------- Mood suggestions (collapsed behind a toggle) ---------- */
 
-.quick-actions {
+.mood-toggle-row {
   display: flex;
   justify-content: center;
   margin: 0 0 1.6rem;
 }
 
-.favorites-toggle {
+.mood-toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -317,18 +364,16 @@ a {
   transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
-.favorites-toggle svg {
+.mood-toggle svg {
   width: 1.05rem;
   height: 1.05rem;
 }
 
-.favorites-toggle:hover {
-  color: var(--amber);
-  border-color: rgba(245, 185, 90, 0.4);
-  transform: translateY(-1px);
+.mood-toggle:hover,
+.mood-toggle[aria-expanded="true"] {
+  color: var(--teal);
+  border-color: rgba(79, 214, 200, 0.4);
 }
-
-/* ---------- Mood suggestions ---------- */
 
 .mood-panel {
   display: flex;
@@ -337,12 +382,6 @@ a {
   justify-content: center;
   gap: 0.6rem;
   margin: 0 0 2.2rem;
-}
-
-.mood-label {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  margin-right: 0.2rem;
 }
 
 .mood-btn {
@@ -864,7 +903,11 @@ main {
   }
 
   .site-header {
-    padding: 2.4rem 1.2rem 1.6rem;
+    padding: 0 0 1.6rem;
+  }
+
+  .topnav {
+    padding: 1rem 1.2rem;
   }
 
   .site-header.compact {

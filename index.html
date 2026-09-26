@@ -8,7 +8,7 @@
     <title>CineFlux — Find any film, instantly</title>
 
     <link rel="icon"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9E%3C/text%3E%3C/svg%3E">
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='10' y='25' width='80' height='55' rx='10' fill='none' stroke='%23f5b95a' stroke-width='6'/%3E%3Ccircle cx='50' cy='52' r='16' fill='none' stroke='%23f5b95a' stroke-width='6'/%3E%3Crect x='30' y='14' width='16' height='12' rx='3' fill='%23f5b95a'/%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -189,7 +189,12 @@
             <div class="hero-content">
 
                 <div class="brand">
-                    <span class="brand-mark">🎞️</span>
+                    <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 8.5 20 5l1 4-17 3.5z" />
+                        <path d="M4 12h16v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" />
+                        <path d="m6 8 3-3M11 7l3-3M16 6l3-3" />
+                    </svg>
                     <span class="brand-name">CineFlux</span>
                 </div>
 
@@ -255,6 +260,21 @@
         </div>
 
 
+        <!-- FAVORITES TOGGLE -->
+        <div class="quick-actions">
+
+            <button type="button" id="favoritesBtn" class="favorites-toggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path
+                        d="M12 21s-6.7-4.35-9.3-8.1C1 10.1 1.6 6.7 4.6 5.2c2.4-1.2 5 .1 6.4 2.3 1.4-2.2 4-3.5 6.4-2.3 3 1.5 3.6 4.9 1.9 7.7C18.7 16.65 12 21 12 21z" />
+                </svg>
+                <span>My Favorites</span>
+            </button>
+
+        </div>
+
+
         <!-- TRENDING -->
         <div class="trending" aria-label="Try a search">
 
@@ -293,21 +313,95 @@
         </div>
 
 
+        <!-- MOOD SUGGESTIONS -->
+        <div class="mood-panel" aria-label="Pick your mood for suggestions">
+
+            <span class="mood-label">Pick your mood:</span>
+
+            <button type="button" class="mood-btn" data-mood="happy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8.5 10h.01M15.5 10h.01" />
+                    <path d="M8 14.5c1 1.2 2.4 1.8 4 1.8s3-.6 4-1.8" />
+                </svg>
+                <span>Happy</span>
+            </button>
+
+            <button type="button" class="mood-btn" data-mood="sad">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8.5 10h.01M15.5 10h.01" />
+                    <path d="M8 16c1-1.2 2.4-1.8 4-1.8s3 .6 4 1.8" />
+                </svg>
+                <span>Sad</span>
+            </button>
+
+            <button type="button" class="mood-btn" data-mood="excited">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M13 2 4 14h6l-1 8 9-12h-6z" />
+                </svg>
+                <span>Excited</span>
+            </button>
+
+            <button type="button" class="mood-btn" data-mood="relaxed">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 9c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2" />
+                    <path d="M3 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2" />
+                </svg>
+                <span>Relaxed</span>
+            </button>
+
+            <button type="button" class="mood-btn" data-mood="scared">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 3 2 20h20z" />
+                    <path d="M12 9v5M12 17h.01" />
+                </svg>
+                <span>Scared</span>
+            </button>
+
+            <button type="button" class="mood-btn" data-mood="romantic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path
+                        d="M12 21s-6.7-4.35-9.3-8.1C1 10.1 1.6 6.7 4.6 5.2c2.4-1.2 5 .1 6.4 2.3 1.4-2.2 4-3.5 6.4-2.3 3 1.5 3.6 4.9 1.9 7.7C18.7 16.65 12 21 12 21z" />
+                </svg>
+                <span>Romantic</span>
+            </button>
+
+        </div>
+
+
         <!-- FEATURES -->
         <div class="feature-row">
 
             <div class="feature">
-                <span class="feature-icon">⚡</span>
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M13 2 4 14h6l-1 8 9-12h-6z" />
+                </svg>
                 <span>Instant search</span>
             </div>
 
             <div class="feature">
-                <span class="feature-icon">🎭</span>
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    <path d="M8 9h8M8 13h5" />
+                </svg>
                 <span>Full cast &amp; plot</span>
             </div>
 
             <div class="feature">
-                <span class="feature-icon">⭐</span>
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path
+                        d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" />
+                </svg>
                 <span>IMDb ratings</span>
             </div>
 
@@ -319,9 +413,12 @@
 
             <div class="empty-state">
 
-                <div class="empty-icon">
-                    🎬
-                </div>
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="6" width="14" height="12" rx="2" />
+                    <path d="m17 10 4-2.5v9L17 14" />
+                    <path d="M7 6V4M11 6V4" />
+                </svg>
 
                 <p>
                     Search for a movie above to see its poster,
@@ -347,6 +444,7 @@
 
     <!-- JAVASCRIPT -->
     <script src="effects.js"></script>
+    <script src="favorites.js"></script>
     <script src="script.js"></script>
 
 </body>

@@ -189,7 +189,10 @@ a {
 }
 
 .brand-mark {
-  font-size: 1.6rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--amber);
+  flex-shrink: 0;
   filter: drop-shadow(0 4px 10px rgba(245, 185, 90, 0.4));
 }
 
@@ -204,9 +207,17 @@ a {
 }
 
 .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.9rem;
   color: var(--text-dim);
   transition: color 0.2s ease;
+}
+
+.back-link svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .back-link:hover {
@@ -282,6 +293,85 @@ a {
   transform: translateY(-1px);
 }
 
+/* ---------- Quick actions (favorites toggle) ---------- */
+
+.quick-actions {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1.6rem;
+}
+
+.favorites-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.favorites-toggle svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.favorites-toggle:hover {
+  color: var(--amber);
+  border-color: rgba(245, 185, 90, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ---------- Mood suggestions ---------- */
+
+.mood-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 0 2.2rem;
+}
+
+.mood-label {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-right: 0.2rem;
+}
+
+.mood-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.mood-btn svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.mood-btn:hover {
+  color: var(--teal);
+  border-color: rgba(79, 214, 200, 0.4);
+  transform: translateY(-1px);
+}
+
 /* ---------- Feature badges ---------- */
 
 .feature-row {
@@ -301,7 +391,10 @@ a {
 }
 
 .feature-icon {
-  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--amber);
+  flex-shrink: 0;
 }
 
 /* ---------- Empty state ---------- */
@@ -318,8 +411,10 @@ a {
 }
 
 .empty-icon {
-  font-size: 2.6rem;
+  width: 2.6rem;
+  height: 2.6rem;
   opacity: 0.6;
+  color: var(--text-dim);
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5));
 }
 
@@ -429,6 +524,8 @@ main {
   border-bottom-color: var(--color-2);
   border-radius: 50%;
   display: block;
+  grid-column: 1 / -1;
+  justify-self: center;
   margin: 3rem auto;
   box-sizing: border-box;
   animation: rotation 0.9s linear infinite;
@@ -488,9 +585,72 @@ main {
 }
 
 .movie-card > div:first-child {
+  position: relative;
   aspect-ratio: 2 / 3;
   overflow: hidden;
   background: #1c202c;
+}
+
+/* ---------- Favorite (heart) button ---------- */
+
+.favorite-btn {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(10, 12, 20, 0.55);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.08);
+  background: rgba(10, 12, 20, 0.75);
+}
+
+.favorite-btn.active {
+  color: var(--amber);
+}
+
+.heart-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.favorite-btn-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.favorite-btn-detail svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.favorite-btn-detail.active {
+  color: var(--amber);
+  border-color: rgba(245, 185, 90, 0.4);
 }
 
 .movie-card img {
@@ -577,10 +737,6 @@ main {
   color: var(--amber);
   border-color: rgba(245, 185, 90, 0.35);
   font-weight: 700;
-}
-
-#movie-detail > div:last-child > section:nth-child(2) p:last-child::before {
-  content: "★ ";
 }
 
 /* shared "block" look for plot / actors */

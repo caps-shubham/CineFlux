@@ -35,6 +35,8 @@ async function searchMovie(imdbID) {
 
 function displayMovie(data) {
 
+    const favorite = isFavorite(data.imdbID);
+
     movieDetail.innerHTML = `
         <div>
             <img src="${data.Poster}" alt="">
@@ -42,6 +44,14 @@ function displayMovie(data) {
 
         <div>
             <h2>${data.Title}</h2>
+
+            <button
+                type="button"
+                id="favoriteBtnDetail"
+                class="favorite-btn-detail ${favorite ? "active" : ""}">
+                ${heartIcon(favorite)}
+                <span>${favorite ? "In Favorites" : "Add to Favorites"}</span>
+            </button>
 
             <section>
                 <p>${data.Released}</p>
@@ -93,4 +103,24 @@ function displayMovie(data) {
 
         </div>
     `;
+
+    const favoriteBtnDetail = document.querySelector("#favoriteBtnDetail");
+
+    favoriteBtnDetail.addEventListener("click", () => {
+
+        const movie = {
+            imdbID: data.imdbID,
+            Title: data.Title,
+            Year: data.Year,
+            Poster: data.Poster,
+        };
+
+        const nowFavorite = toggleFavorite(movie);
+
+        favoriteBtnDetail.classList.toggle("active", nowFavorite);
+        favoriteBtnDetail.innerHTML = `
+            ${heartIcon(nowFavorite)}
+            <span>${nowFavorite ? "In Favorites" : "Add to Favorites"}</span>
+        `;
+    });
 }

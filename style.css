@@ -630,17 +630,23 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-dim);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
   padding: 0.6rem 1.1rem;
   border-radius: 999px;
   cursor: pointer;
-  margin-bottom: 1rem;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.favorite-btn-detail:hover {
+  border-color: rgba(245, 185, 90, 0.5);
+  color: var(--amber);
+  transform: translateY(-1px);
 }
 
 .favorite-btn-detail svg {
@@ -649,8 +655,9 @@ main {
 }
 
 .favorite-btn-detail.active {
-  color: var(--amber);
-  border-color: rgba(245, 185, 90, 0.4);
+  color: #17110a;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dim));
+  border-color: transparent;
 }
 
 .movie-card img {
@@ -706,8 +713,17 @@ main {
   transform-style: preserve-3d;
 }
 
-#movie-detail > div:last-child > h2 {
-  margin: 0 0 0.9rem;
+.detail-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+}
+
+.detail-header h2 {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
@@ -716,14 +732,14 @@ main {
 }
 
 /* meta chip row: released / rated / runtime / genre / imdb rating */
-#movie-detail > div:last-child > section:nth-child(2) {
+.meta-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0 0 1.8rem;
 }
 
-#movie-detail > div:last-child > section:nth-child(2) p {
+.meta-row p {
   margin: 0;
   padding: 0.4rem 0.85rem;
   background: rgba(255, 255, 255, 0.05);
@@ -733,15 +749,14 @@ main {
   color: var(--text-dim);
 }
 
-#movie-detail > div:last-child > section:nth-child(2) p:last-child {
+.meta-row .rating-chip {
   color: var(--amber);
   border-color: rgba(245, 185, 90, 0.35);
   font-weight: 700;
 }
 
 /* shared "block" look for plot / actors */
-#movie-detail > div:last-child > div:nth-child(3),
-#movie-detail > div:last-child > div:nth-child(5) {
+.info-block {
   margin-bottom: 1.8rem;
   padding: 1.3rem 1.4rem;
   background: var(--bg-panel);
@@ -749,70 +764,59 @@ main {
   border-radius: 14px;
 }
 
-#movie-detail > div:last-child > div:nth-child(3) p:first-child,
-#movie-detail > div:last-child > div:nth-child(5) p:first-child {
+.info-block .info-label {
   margin: 0 0 0.5rem;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--teal);
 }
 
-#movie-detail > div:last-child > div:nth-child(3) p:last-child,
-#movie-detail > div:last-child > div:nth-child(5) p:last-child {
+.info-block p:last-child {
   margin: 0;
   color: var(--text);
   max-width: 62ch;
 }
 
 /* two-column sections: director/writer, language/country */
-#movie-detail > div:last-child > div:nth-child(4),
-#movie-detail > div:last-child > div:nth-child(6) {
+.info-columns {
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
   margin-bottom: 1.8rem;
 }
 
-#movie-detail > div:last-child > div:nth-child(4) section,
-#movie-detail > div:last-child > div:nth-child(6) section {
+.info-columns section {
   flex: 1 1 200px;
 }
 
-#movie-detail > div:last-child > div:nth-child(4) section p:first-child,
-#movie-detail > div:last-child > div:nth-child(6) section p:first-child {
+.info-columns .info-label {
   margin: 0 0 0.3rem;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--teal);
 }
 
-#movie-detail > div:last-child > div:nth-child(4) section p:last-child,
-#movie-detail > div:last-child > div:nth-child(6) section p:last-child {
+.info-columns section p:last-child {
   margin: 0;
   color: var(--text);
 }
 
 /* CTA button */
-#movie-detail > div:last-child > button {
-  border: none;
+.imdb-link {
+  display: inline-block;
   border-radius: 999px;
-  padding: 0;
+  padding: 0.85rem 1.8rem;
+  font-weight: 700;
+  color: #17110a;
   background: linear-gradient(135deg, var(--amber), var(--amber-dim));
   cursor: pointer;
   box-shadow: 0 14px 30px -10px rgba(245, 185, 90, 0.55);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-#movie-detail > div:last-child > button:hover {
+.imdb-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 18px 36px -10px rgba(245, 185, 90, 0.7);
-}
-
-#movie-detail > div:last-child > button a {
-  display: block;
-  padding: 0.85rem 1.8rem;
-  font-weight: 700;
-  color: #17110a;
 }
 
 /* ---------- Footer ---------- */
@@ -937,13 +941,12 @@ main {
     font-size: 0.88rem;
   }
 
-  #movie-detail > div:last-child > section:nth-child(2) p {
+  .meta-row p {
     font-size: 0.78rem;
     padding: 0.35rem 0.7rem;
   }
 
-  #movie-detail > div:last-child > div:nth-child(3),
-  #movie-detail > div:last-child > div:nth-child(5) {
+  .info-block {
     padding: 1.05rem 1.1rem;
   }
 }
@@ -966,7 +969,7 @@ main {
     max-width: 200px;
   }
 
-  #movie-detail > div:last-child > h2 {
+  .detail-header h2 {
     font-size: clamp(1.8rem, 9vw, 2.4rem);
   }
 }

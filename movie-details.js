@@ -43,64 +43,63 @@ function displayMovie(data) {
         </div>
 
         <div>
-            <h2>${data.Title}</h2>
+            <div class="detail-header">
+                <h2>${data.Title}</h2>
 
-            <button
-                type="button"
-                id="favoriteBtnDetail"
-                class="favorite-btn-detail ${favorite ? "active" : ""}">
-                ${heartIcon(favorite)}
-                <span>${favorite ? "In Favorites" : "Add to Favorites"}</span>
-            </button>
+                <button
+                    type="button"
+                    id="favoriteBtnDetail"
+                    class="favorite-btn-detail ${favorite ? "active" : ""}">
+                    ${heartIcon(favorite)}
+                    <span>${favorite ? "In Favorites" : "Add to Favorites"}</span>
+                </button>
+            </div>
 
-            <section>
+            <section class="meta-row">
                 <p>${data.Released}</p>
                 <p>${data.Rated}</p>
                 <p>${data.Runtime}</p>
                 <p>${data.Genre}</p>
-                <p>IMDb: ${data.imdbRating} / 10</p>
+                <p class="rating-chip">IMDb: ${data.imdbRating} / 10</p>
             </section>
 
-            <div>
-                <p>Plot Overview</p>
+            <div class="info-block">
+                <p class="info-label">Plot Overview</p>
                 <p>${data.Plot}</p>
             </div>
 
-            <div>
+            <div class="info-columns">
                 <section>
-                    <p>Director</p>
+                    <p class="info-label">Director</p>
                     <p>${data.Director}</p>
                 </section>
 
                 <section>
-                    <p>Writer</p>
+                    <p class="info-label">Writer</p>
                     <p>${data.Writer}</p>
                 </section>
             </div>
 
-            <div>
-                <p>Actors</p>
+            <div class="info-block">
+                <p class="info-label">Actors</p>
                 <p>${data.Actors}</p>
             </div>
 
-            <div>
+            <div class="info-columns">
                 <section>
-                    <p>Language</p>
+                    <p class="info-label">Language</p>
                     <p>${data.Language}</p>
                 </section>
 
                 <section>
-                    <p>Country</p>
+                    <p class="info-label">Country</p>
                     <p>${data.Country}</p>
                 </section>
             </div>
 
-            <button>
-                <a href="https://www.imdb.com/title/${data.imdbID}" target="_blank">
-                    View on IMDb
-                </a>
-            </button>
-
+            <a class="imdb-link" href="https://www.imdb.com/title/${data.imdbID}" target="_blank">
+                View on IMDb
+            </a>
         </div>
     `;
 
